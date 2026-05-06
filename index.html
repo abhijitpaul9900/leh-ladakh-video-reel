@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Family in Leh-Ladakh</title>
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <header class="reel-header">
+            <h1>Paul Family in Leh-Ladakh</h1>
+        </header>
+
+        <div class="swipe-indicator">
+            <img src="swipe-up-transparent.png" alt="Swipe up to see more">
+        </div>
+
+
+        <main class="reel-feed">
+
+            <section class="reel-video">
+                <video src="1.mp4" loop playsinline controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Journey from BLR to Leh</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="2.mp4" loop playsinline controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Leh Aryan Village</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="3.mp4" loop playsinline controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Aryan Village to Hambuting La Pass</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="4.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Kargil War Memorial, Apricot Blossom and Maitreya Budhha in KarcheyKhar</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="5.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>The beauty of Suru Valley, Parkachik Glaciers</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="6.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>The Giant Budhha at Mulbek and Moonland Valley</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="7.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Leh Palace, Rancho School, Shey Palace, Sindhu Ghat</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="8.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Khardung La Pass, ATV ride, Double hump-bactrian Camel</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="9.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Khardung La Pass, ATV ride, Double hump-bactrian Camel</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="10.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Suru River to Turtuk Village in Nubra Valley</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="11.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Snippets from Nubra Valley, Dikshet Monastery</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="12.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Reach Pangong Lake [3-idiots Lake]</p>
+                </div>
+            </section>
+
+            <section class="reel-video">
+                <video src="14.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <div class="video-overlay">
+                    <p>Revisit Pangong Lake and Changla Pass</p>
+                </div>
+            </section>
+
+
+        </main>
+    </div>
+
+    <script>
+
+        const videos = document.querySelectorAll('video');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.6 });
+
+        videos.forEach(video => {
+            observer.observe(video);
+            video.addEventListener('click', () => {
+                if (video.paused) video.play();
+                else video.pause();
+            });
+        });
+
+
+        const feed = document.querySelector('.reel-feed');
+        const indicator = document.querySelector('.swipe-indicator');
+
+        feed.addEventListener('scroll', () => {
+            const maxScroll = feed.scrollHeight - feed.clientHeight;
+
+            if (feed.scrollTop >= maxScroll - 50) {
+                indicator.style.opacity = '0';
+                setTimeout(() => { indicator.style.display = 'none'; }, 300);
+            } else {
+                indicator.style.display = 'block';
+                indicator.style.opacity = '0.8';
+            }
+        });
+    </script>
+</body>
+
+</html>
