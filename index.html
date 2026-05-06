@@ -25,93 +25,102 @@
         <main class="reel-feed">
 
             <section class="reel-video">
-                <video src="1.mp4" loop playsinline controls controlsList="nodownload noremoteplayback"></video>
+                <video src="1.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Journey from BLR to Leh</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="2.mp4" loop playsinline controls controlsList="nodownload noremoteplayback"></video>
+                <video src="2.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Leh Aryan Village</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="3.mp4" loop playsinline controls controlsList="nodownload noremoteplayback"></video>
+                <video src="3.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Aryan Village to Hambuting La Pass</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="4.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="4.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Kargil War Memorial, Apricot Blossom and Maitreya Budhha in KarcheyKhar</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="5.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="5.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>The beauty of Suru Valley, Parkachik Glaciers</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="6.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="6.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>The Giant Budhha at Mulbek and Moonland Valley</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="7.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="7.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Leh Palace, Rancho School, Shey Palace, Sindhu Ghat</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="8.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="8.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Khardung La Pass, ATV ride, Double hump-bactrian Camel</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="9.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="9.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Scenic Nubra Valley</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="10.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="10.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Suru River to Turtuk Village in Nubra Valley</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="11.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="11.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Snippets from Nubra Valley, Dikshet Monastery</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="12.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="12.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Reach Pangong Lake [3-idiots Lake]</p>
                 </div>
             </section>
 
             <section class="reel-video">
-                <video src="14.mp4" loop controls controlsList="nodownload noremoteplayback"></video>
+                <video src="14.mp4" playsinline controls controlsList="nodownload noremoteplayback"></video>
                 <div class="video-overlay">
                     <p>Revisit Pangong Lake and Changla Pass</p>
+                </div>
+            </section>
+
+            <section class="reel-video thank-you-slide">
+                <div class="thank-you-content">
+                    <h2>Julley!</h2> 
+                    <p>Thank you for watching</p>
+                    <span>The Paul Family | Ladakh 2026</span>
+                    <button onclick="scrollToTop()" class="restart-btn">Watch Again</button>
                 </div>
             </section>
 
@@ -120,7 +129,7 @@
     </div>
 
     <script>
-
+        const feedContainer = document.querySelector('.reel-feed');
         const videos = document.querySelectorAll('video');
 
         const observer = new IntersectionObserver((entries) => {
@@ -133,14 +142,43 @@
             });
         }, { threshold: 0.6 });
 
-        videos.forEach(video => {
+        videos.forEach((video, index) => {
             observer.observe(video);
             video.addEventListener('click', () => {
                 if (video.paused) video.play();
                 else video.pause();
             });
+            video.addEventListener('ended', () => {
+                const sectionHeight = video.closest('.reel-video').offsetHeight;
+                const nextScrollTop = (index + 1) * sectionHeight;
+
+                setTimeout(() => {
+                    if (index < videos.length - 1) {
+                        feedContainer.scrollTo({
+                            top: nextScrollTop,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        feedContainer.scrollTo({
+                            top: feedContainer.scrollHeight,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 500);
+
+            });
         });
 
+
+
+        function scrollToTop() {
+            feedContainer.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+            
+            if(videos[0]) videos[0].play();
+        }
 
         const feed = document.querySelector('.reel-feed');
         const indicator = document.querySelector('.swipe-indicator');
